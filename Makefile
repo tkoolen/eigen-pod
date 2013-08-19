@@ -1,6 +1,6 @@
-DL_LINK   = http://bitbucket.org/eigen/eigen/get/3.1.0.tar.gz
-DL_NAME   = 3.1.0.tar.gz
-UNZIP_DIR = eigen-eigen-ca142d0540d3/
+DL_LINK   = http://bitbucket.org/eigen/eigen/get/3.2.0.tar.gz
+DL_NAME   = 3.2.0.tar.gz
+UNZIP_DIR = eigen-eigen-ffa86ffb5570/
 
 
 default_target: all
