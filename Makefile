@@ -46,6 +46,7 @@ configure: $(UNZIP_DIR)/CMakeLists.txt
 
 	# create the lib directory if needed, so the pkgconfig gets installed to the right place
 	@mkdir -p $(BUILD_PREFIX)/lib
+	@mkdir -p $(BUILD_PREFIX)/lib/pkgconfig
 
 	# run CMake to generate and configure the build scripts
 	@cd pod-build && cmake -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
