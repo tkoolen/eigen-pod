@@ -35,7 +35,7 @@ endif
 CMAKE_MAKE_PROGRAM=`cmake -LA -N | grep CMAKE_MAKE_PROGRAM | cut -d "=" -f2- `
 
 all: pod-build/Makefile
-	cd pod-build && $(CMAKE_MAKE_PROGRAM) install 
+	cd pod-build && $(CMAKE_MAKE_PROGRAM) install
 
 pod-build/Makefile:
 	$(MAKE) configure
@@ -53,7 +53,8 @@ configure: $(UNZIP_DIR)/CMakeLists.txt
 
 	# run CMake to generate and configure the build scripts
 	@cd pod-build && cmake -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
-		   -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR)
+		   -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR) \
+       -DEIGEN_BUILD_PKGCONFIG=ON
 
 $(UNZIP_DIR)/CMakeLists.txt:
 	wget --no-check-certificate $(DL_LINK) && tar -xzf $(DL_NAME) && rm $(DL_NAME)
@@ -63,6 +64,6 @@ clean:
 	-if [ -e pod-build/install_manifest.txt ]; then rm -f `cat pod-build/install_manifest.txt`; fi
 	-if [ -d pod-build ]; then $(MAKE) -C pod-build clean; rm -rf pod-build; fi
 
-# other (custom) targets are passed through to the cmake-generated Makefile 
+# other (custom) targets are passed through to the cmake-generated Makefile
 %::
 	cd pod-build && $(CMAKE_MAKE_PROGRAM) $@
