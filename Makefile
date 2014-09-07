@@ -3,7 +3,7 @@ DL_NAME   = 3.2.1.tar.gz
 UNZIP_DIR = eigen-eigen-6b38706d90a9
 
 
-default_target: all
+#default_target: all
 
 # Default to a less-verbose build.  If you want all the gory compiler output,
 # run "make VERBOSE=1"
@@ -23,7 +23,7 @@ BUILD_PREFIX:=$(shell mkdir -p $(BUILD_PREFIX) && cd $(BUILD_PREFIX) && echo `pw
 # Default to a release build.  If you want to enable debugging flags, run
 # "make BUILD_TYPE=Debug"
 ifeq "$(BUILD_TYPE)" ""
-BUILD_TYPE="Release"
+  BUILD_TYPE="Release"
 endif
 
 SED=sed
@@ -31,8 +31,11 @@ ifeq ($(shell uname), Darwin)
   SED=gsed
 endif
 
+# note: this is evaluated at run time, so must be in the pod-build directory
+CMAKE_MAKE_PROGRAM=`cmake -LA -N | grep CMAKE_MAKE_PROGRAM | cut -d "=" -f2- `
+
 all: pod-build/Makefile
-	$(MAKE) -C pod-build all install
+	cd pod-build && $(CMAKE_MAKE_PROGRAM) install 
 
 pod-build/Makefile:
 	$(MAKE) configure
@@ -55,3 +58,7 @@ $(UNZIP_DIR)/CMakeLists.txt:
 clean:
 	-if [ -e pod-build/install_manifest.txt ]; then rm -f `cat pod-build/install_manifest.txt`; fi
 	-if [ -d pod-build ]; then $(MAKE) -C pod-build clean; rm -rf pod-build; fi
+
+# other (custom) targets are passed through to the cmake-generated Makefile 
+%::
+	cd pod-build && $(CMAKE_MAKE_PROGRAM) $@
