@@ -31,6 +31,10 @@ ifeq ($(shell uname), Darwin)
   SED=gsed
 endif
 
+ifeq ($(shell echo $$OSTYPE),cygwin)
+  BUILD_PREFIX:=$(shell cygpath -m $(BUILD_PREFIX))
+endif
+
 # note: this is evaluated at run time, so must be in the pod-build directory
 CMAKE_MAKE_PROGRAM=`cmake -LA -N | grep CMAKE_MAKE_PROGRAM | cut -d "=" -f2- `
 
