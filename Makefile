@@ -35,11 +35,8 @@ ifeq ($(shell echo $$OSTYPE),cygwin)
   BUILD_PREFIX:=$(shell cygpath -m $(BUILD_PREFIX))
 endif
 
-# note: this is evaluated at run time, so must be in the pod-build directory
-CMAKE_MAKE_PROGRAM=`cmake -LA -N | grep CMAKE_MAKE_PROGRAM | cut -d "=" -f2- `
-
 all: pod-build/Makefile
-	cd pod-build && $(CMAKE_MAKE_PROGRAM) install
+	cmake --build pod-build --config $(BUILD_TYPE) --target install
 
 pod-build/Makefile:
 	$(MAKE) configure
@@ -66,8 +63,8 @@ $(UNZIP_DIR)/CMakeLists.txt:
 
 clean:
 	-if [ -e pod-build/install_manifest.txt ]; then rm -f `cat pod-build/install_manifest.txt`; fi
-	-if [ -d pod-build ]; then $(MAKE) -C pod-build clean; rm -rf pod-build; fi
+	-if [ -d pod-build ]; then cmake --build pod-build --target clean; rm -rf pod-build; fi
 
 # other (custom) targets are passed through to the cmake-generated Makefile
 %::
-	cd pod-build && $(CMAKE_MAKE_PROGRAM) $@
+	cmake --build pod-build --config $(BUILD_TYPE) --target $@
