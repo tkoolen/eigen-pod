@@ -57,7 +57,7 @@ configure: $(UNZIP_DIR)/CMakeLists.txt
        -DEIGEN_BUILD_PKGCONFIG=ON
 
 $(UNZIP_DIR)/CMakeLists.txt:
-	wget --no-check-certificate $(DL_LINK) && tar -xzf $(DL_NAME) && rm $(DL_NAME)
+	wget --no-check-certificate $(DL_LINK) && tar -xjf $(DL_NAME) && rm $(DL_NAME)
 	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
 
 release_filelist:
