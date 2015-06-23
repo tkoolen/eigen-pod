@@ -7,9 +7,7 @@ UNZIP_DIR = eigen-eigen-10219c95fe65
 
 BUILD_SYSTEM:=$(OS)
 ifeq ($(BUILD_SYSTEM),Windows_NT)
-ifneq ($(CYGWIN),)# check if it's cygwin
-BUILD_SYSTEM:=Cygwin
-endif
+BUILD_SYSTEM:=$(shell uname -o 2> NULL || echo Windows_NT) # set to Cygwin if appropriate
 else
 BUILD_SYSTEM:=$(shell uname -s)
 endif
