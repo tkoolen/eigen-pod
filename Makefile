@@ -77,12 +77,12 @@ $(UNZIP_DIR)/CMakeLists.txt:
 	wget --no-check-certificate $(DL_LINK)
 	bzip2 -d $(DL_NAME)
 	tar -xf $(TAR_NAME)
-ifeq ($BUILD_SYSTEM,Windows_NT)
-  del $(DL_NAME) $(TAR_NAME)
-else
-	rm $(DL_NAME) $(TAR_NAME)
-endif
 	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
+ifeq ($BUILD_SYSTEM,Windows_NT)
+	-del $(DL_NAME) $(TAR_NAME)
+else
+	-rm $(DL_NAME) $(TAR_NAME)
+endif
 
 release_filelist:
 # intentionally left blank
