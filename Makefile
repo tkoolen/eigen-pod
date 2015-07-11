@@ -7,7 +7,7 @@ UNZIP_DIR = eigen-eigen-10219c95fe65
 
 BUILD_SYSTEM:=$(OS)
 ifeq ($(BUILD_SYSTEM),Windows_NT)
-BUILD_SYSTEM:=$(shell uname -o 2> NULL || echo Windows_NT) # set to Cygwin if appropriate
+BUILD_SYSTEM:=$(shell uname -o 2> NUL || echo Windows_NT) # set to Cygwin if appropriate
 else
 BUILD_SYSTEM:=$(shell uname -s)
 endif
@@ -33,6 +33,8 @@ endif
 ifeq ($(BUILD_SYSTEM),Cygwin)
   BUILD_PREFIX:=$(shell cygpath -m $(BUILD_PREFIX))
 endif
+PKG_CONFIG_LIBDIR:=$(BUILD_PREFIX)/lib
+export PKG_CONFIG_LIBDIR
 
 # Default to a release build.  If you want to enable debugging flags, run
 # "make BUILD_TYPE=Debug"
@@ -53,7 +55,7 @@ pod-build/Makefile:
 
 .PHONY: configure
 configure: $(UNZIP_DIR)/CMakeLists.txt
-	@echo "\nBUILD_PREFIX: $(BUILD_PREFIX)\n\n"
+	@echo "BUILD_PREFIX: $(BUILD_PREFIX)"
 
 # create the temporary build directory if needed
 # create the lib directory if needed, so the pkgconfig gets installed to the right place
@@ -70,14 +72,13 @@ endif
 
 # run CMake to generate and configure the build scripts
 	@cd pod-build && cmake $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
-		   -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR) \
-       -DEIGEN_BUILD_PKGCONFIG=ON
+	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR) 
 
 $(UNZIP_DIR)/CMakeLists.txt:
 	wget --no-check-certificate $(DL_LINK)
 	bzip2 -d $(DL_NAME)
 	tar -xf $(TAR_NAME)
-	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
+#	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
 ifeq ($BUILD_SYSTEM,Windows_NT)
 	-del $(DL_NAME) $(TAR_NAME)
 else
