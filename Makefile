@@ -11,6 +11,7 @@ BUILD_SYSTEM:=$(shell uname -o 2> NUL || echo Windows_NT) # set to Cygwin if app
 else
 BUILD_SYSTEM:=$(shell uname -s)
 endif
+BUILD_SYSTEM:=$(strip $(BUILD_SYSTEM))
 
 # Figure out where to build the software.
 #   Use BUILD_PREFIX if it was passed in.
@@ -30,7 +31,7 @@ endif
 BUILD_PREFIX:=$(shell mkdir -p $(BUILD_PREFIX) && cd $(BUILD_PREFIX) && echo `pwd`)
 endif
 
-ifeq ($(BUILD_SYSTEM),Cygwin)
+ifeq "$(BUILD_SYSTEM)" "Cygwin"
   BUILD_PREFIX:=$(shell cygpath -m $(BUILD_PREFIX))
 endif
 PKG_CONFIG_LIBDIR:=$(BUILD_PREFIX)/lib
@@ -55,6 +56,7 @@ pod-build/Makefile:
 
 .PHONY: configure
 configure: $(UNZIP_DIR)/CMakeLists.txt
+#	@echo "BUILD_SYSTEM: '$(BUILD_SYSTEM)'"
 	@echo "BUILD_PREFIX: $(BUILD_PREFIX)"
 
 # create the temporary build directory if needed
