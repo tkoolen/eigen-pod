@@ -1,9 +1,3 @@
-DL_LINK   = http://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2
-DL_NAME   = 3.2.5.tar.bz2
-TAR_NAME = 3.2.5.tar
-UNZIP_DIR = eigen-eigen-bdd17ee3b1b3
-
-#default_target: all
 
 BUILD_SYSTEM:=$(OS)
 ifeq ($(BUILD_SYSTEM),Windows_NT)
@@ -34,8 +28,6 @@ endif
 ifeq "$(BUILD_SYSTEM)" "Cygwin"
   BUILD_PREFIX:=$(shell cygpath -m $(BUILD_PREFIX))
 endif
-PKG_CONFIG_LIBDIR:=$(BUILD_PREFIX)/lib
-export PKG_CONFIG_LIBDIR
 
 # Default to a release build.  If you want to enable debugging flags, run
 # "make BUILD_TYPE=Debug"
@@ -43,19 +35,14 @@ ifeq "$(BUILD_TYPE)" ""
   BUILD_TYPE="Release"
 endif
 
-SED=sed
-ifeq ($(BUILD_SYSTEM),Darwin)
-  SED=gsed
-endif
-
 all: pod-build/Makefile
-	cmake --build pod-build --config $(BUILD_TYPE) --target install
+	cmake --build pod-build --config $(BUILD_TYPE) --target all
 
 pod-build/Makefile:
 	"$(MAKE)" configure
 
 .PHONY: configure
-configure: $(UNZIP_DIR)/CMakeLists.txt
+configure: 
 #	@echo "BUILD_SYSTEM: '$(BUILD_SYSTEM)'"
 	@echo "BUILD_PREFIX: $(BUILD_PREFIX)"
 
@@ -75,17 +62,6 @@ endif
 # run CMake to generate and configure the build scripts
 	@cd pod-build && cmake $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
 	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR)
-
-$(UNZIP_DIR)/CMakeLists.txt:
-	wget --no-check-certificate $(DL_LINK)
-	bzip2 -d $(DL_NAME)
-	tar -xf $(TAR_NAME)
-#	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
-ifeq ($(BUILD_SYSTEM),Windows_NT)
-	-del $(DL_NAME) $(TAR_NAME)
-else
-	-rm $(DL_NAME) $(TAR_NAME)
-endif
 
 release_filelist:
 # intentionally left blank
