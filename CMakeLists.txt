@@ -13,4 +13,4 @@ ExternalProject_Add(eigen
 
 # this was cleaner (more platform independent) than writing a wrapper shell script around CMAKE
 ExternalProject_Get_Property(eigen BINARY_DIR)
-install(FILES ${BINARY_DIR}/eigen3.pc DESTINATION ${CMAKE_INSTALL_PREFIX}/build/lib/pkgconfig)
+install(FILES ${BINARY_DIR}/eigen3.pc DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
