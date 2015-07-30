@@ -1,7 +1,7 @@
-DL_LINK   = http://bitbucket.org/eigen/eigen/get/3.2.4.tar.bz2
-DL_NAME   = 3.2.4.tar.bz2
-TAR_NAME = 3.2.4.tar
-UNZIP_DIR = eigen-eigen-10219c95fe65
+DL_LINK   = http://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2
+DL_NAME   = 3.2.5.tar.bz2
+TAR_NAME = 3.2.5.tar
+UNZIP_DIR = eigen-eigen-bdd17ee3b1b3
 
 #default_target: all
 
