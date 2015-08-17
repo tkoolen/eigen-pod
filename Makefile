@@ -62,10 +62,10 @@ configure: $(UNZIP_DIR)/CMakeLists.txt
 # create the temporary build directory if needed
 # create the lib directory if needed, so the pkgconfig gets installed to the right place
 ifeq ($(BUILD_SYSTEM), Windows_NT)
-	@if not exist $(BUILD_PREFIX) ( mkdir $(BUILD_PREFIX) )
+	@if not exist $(BUILD_PREFIX) ( mkdir "$(BUILD_PREFIX)" )
 	@if not exist pod-build ( mkdir pod-build )
-	@if not exist $(BUILD_PREFIX)\lib ( mkdir $(BUILD_PREFIX)\lib )
-	@if not exist $(BUILD_PREFIX)\lib\pkgconfig ( mkdir $(BUILD_PREFIX)\lib\pkgconfig )
+	@if not exist $(BUILD_PREFIX)\lib ( mkdir "$(BUILD_PREFIX)\lib" )
+	@if not exist $(BUILD_PREFIX)\lib\pkgconfig ( mkdir "$(BUILD_PREFIX)\lib\pkgconfig" )
 else
 	@mkdir -p pod-build
 	@mkdir -p $(BUILD_PREFIX)/lib
@@ -74,7 +74,7 @@ endif
 
 # run CMake to generate and configure the build scripts
 	@cd pod-build && cmake $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
-	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR) 
+	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR)
 
 $(UNZIP_DIR)/CMakeLists.txt:
 	wget --no-check-certificate $(DL_LINK)
