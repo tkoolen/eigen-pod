@@ -81,7 +81,7 @@ $(UNZIP_DIR)/CMakeLists.txt:
 	bzip2 -d $(DL_NAME)
 	tar -xf $(TAR_NAME)
 #	$(SED) -i -e 's@share/pkgconfig@lib/pkgconfig@g' $(UNZIP_DIR)/CMakeLists.txt
-ifeq ($BUILD_SYSTEM,Windows_NT)
+ifeq ($(BUILD_SYSTEM),Windows_NT)
 	-del $(DL_NAME) $(TAR_NAME)
 else
 	-rm $(DL_NAME) $(TAR_NAME)
