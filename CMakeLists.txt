@@ -8,7 +8,7 @@ include(ExternalProject)
 
 ExternalProject_Add(eigen
   URL https://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2
-  URL_MD5=21a928f6e0f1c7f24b6f63ff823593f5
+  URL_MD5 21a928f6e0f1c7f24b6f63ff823593f5
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DEIGEN_BUILD_PKGCONFIG=ON $ENV{CMAKE_FLAGS})
 
 # this was cleaner (more platform independent) than writing a wrapper shell script around CMAKE
