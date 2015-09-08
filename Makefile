@@ -36,13 +36,13 @@ ifeq "$(BUILD_TYPE)" ""
 endif
 
 all: pod-build/Makefile
-	cmake --build pod-build --config $(BUILD_TYPE) --target all
+	cmake --build pod-build --config $(BUILD_TYPE) --target install
 
 pod-build/Makefile:
 	"$(MAKE)" configure
 
 .PHONY: configure
-configure: 
+configure:
 #	@echo "BUILD_SYSTEM: '$(BUILD_SYSTEM)'"
 	@echo "BUILD_PREFIX: $(BUILD_PREFIX)"
 
@@ -61,7 +61,7 @@ endif
 
 # run CMake to generate and configure the build scripts
 	@cd pod-build && cmake $(CMAKE_FLAGS) -DCMAKE_INSTALL_PREFIX=$(BUILD_PREFIX) \
-	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ../$(UNZIP_DIR)
+	       	-DEIGEN_BUILD_PKGCONFIG=ON -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) ..
 
 release_filelist:
 # intentionally left blank
