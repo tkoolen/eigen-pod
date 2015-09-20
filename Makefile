@@ -12,7 +12,7 @@ endif
 
 .PHONY: all
 all: configure
-	cmake --build pod-build $(CMAKE_CONFIG)
+	cmake --build pod-build $(CMAKE_CONFIG) --target install
 
 pod-build:
 	@-mkdir pod-build
