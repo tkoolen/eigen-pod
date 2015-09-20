@@ -4,14 +4,14 @@ project(eigen)
 include(ExternalProject)
 
 # PODs out-of-source build logic
-if (CMAKE_INSTALL_PREFIX STREQUAL "/usr/local" OR CMAKE_INSTALL_PREFIX STREQUAL "C:/Program Files/${PROJECT_NAME}") 
+if (CMAKE_INSTALL_PREFIX STREQUAL "/usr/local" OR CMAKE_INSTALL_PREFIX STREQUAL "C:/Program Files/${PROJECT_NAME}")
   find_file(_build_dir build PATHS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/.. ${PROJECT_SOURCE_DIR}/../.. ${PROJECT_SOURCE_DIR}/../../.. ${PROJECT_SOURCE_DIR}/../../../..)
   if (_build_dir)
       set(CMAKE_INSTALL_PREFIX "${_build_dir}")
   else()
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/build)
     set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/build)
-  endif() 
+  endif()
 endif()
 message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 
@@ -30,19 +30,18 @@ ExternalProject_Add(eigen
 # this was cleaner (more platform independent) than writing a wrapper shell script around CMAKE
 ExternalProject_Get_Property(eigen SOURCE_DIR)
 
+file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include/eigen3)
+install(DIRECTORY ${SOURCE_DIR}/Eigen ${SOURCE_DIR}/unsupported
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/eigen3)
+
+install(FILES ${SOURCE_DIR}/signature_of_eigen3_matrix_library
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/eigen3)
+
+
+# and finally the configure file
 set(EIGEN_VERSION_NUMBER 3.2.5)
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/eigen3)
-
-configure_file(${SOURCE_DIR}/eigen3.pc.in eigen3.pc)
-
+configure_file(eigen3.pc.in eigen3.pc)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/eigen3.pc
         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
-
-file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/include/eigen3)
-install(DIRECTORY ${SOURCE_DIR}/Eigen ${SOURCE_DIR}/unsupported   
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/eigen3)
-
-install(FILES ${SOURCE_DIR}/signature_of_eigen3_matrix_library 
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/include/eigen3)
-
