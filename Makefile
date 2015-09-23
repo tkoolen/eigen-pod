@@ -33,7 +33,7 @@ endif
 
 .PHONY: clean
 clean:
-	cmake --build pod-build --target clean-all
+	cmake --build pod-build --target clean
 	cmake -E remove_directory pod-build
 	cmake -E remove_directory build
 
