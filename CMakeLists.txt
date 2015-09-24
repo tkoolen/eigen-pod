@@ -22,6 +22,7 @@ message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 ExternalProject_Add(eigen
   URL https://bitbucket.org/eigen/eigen/get/3.2.5.tar.bz2
   URL_MD5 21a928f6e0f1c7f24b6f63ff823593f5
+  PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND "")
