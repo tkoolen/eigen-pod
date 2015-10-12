@@ -623,12 +623,13 @@ EIGEN_AUTODIFF_DECLARE_GLOBAL_UNARY(acos,
 
 #undef EIGEN_AUTODIFF_DECLARE_GLOBAL_UNARY
 
-template<typename DerType> struct NumTraits<AutoDiffScalar<DerType> >
-  : NumTraits< typename NumTraits<typename DerType::Scalar>::Real >
+template<typename Scalar, int Rows, int Cols, int Options, int MaxRows, int MaxCols>
+struct NumTraits<AutoDiffScalar<Matrix<Scalar, Rows, Cols, Options, MaxRows, MaxCols> > >
+  : NumTraits< typename NumTraits<Scalar>::Real >
 {
-  typedef AutoDiffScalar<Matrix<typename NumTraits<typename DerType::Scalar>::Real,DerType::RowsAtCompileTime,DerType::ColsAtCompileTime, DerType::Options, DerType::MaxRowsAtCompileTime, DerType::MaxColsAtCompileTime> > Real;
-  typedef AutoDiffScalar<DerType> NonInteger;
-  typedef AutoDiffScalar<DerType> Nested;
+  typedef AutoDiffScalar<Matrix<typename NumTraits<Scalar>::Real, Rows, Cols, Options, MaxRows, MaxCols>> Real;
+  typedef AutoDiffScalar<Matrix<Scalar, Rows, Cols, Options, MaxRows, MaxCols>> NonInteger;
+  typedef AutoDiffScalar<Matrix<Scalar, Rows, Cols, Options, MaxRows, MaxCols>> Nested;
   enum{
     RequireInitialization = 1
   };
