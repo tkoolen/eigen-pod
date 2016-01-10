@@ -578,7 +578,7 @@ EIGEN_AUTODIFF_DECLARE_GLOBAL_UNARY(log,
 
 EIGEN_AUTODIFF_DECLARE_GLOBAL_UNARY(floor,
   using std::floor;
-  return ReturnType(floor(x.value()));)
+  return ReturnType(floor(x.value()), x.derivatives() * Scalar(0));)
 
 template<typename DerType>
 inline const Eigen::AutoDiffScalar<Eigen::CwiseUnaryOp<Eigen::internal::scalar_multiple_op<typename Eigen::internal::traits<DerType>::Scalar>, const DerType> >
