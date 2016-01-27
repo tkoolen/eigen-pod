@@ -22,9 +22,9 @@ message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 # Note: this doesn't survive through to the configure step of the extenal project (http://cmake.3232098.n2.nabble.com/Pass-PATH-to-ExternalProject-Add-td5788195.html).  added an install version below
 
 ExternalProject_Add(eigen
-  URL https://bitbucket.org/eigen/eigen/get/3.2.7.tar.bz2
+  URL https://bitbucket.org/eigen/eigen/get/3.3-beta1.tar.bz2
 #  URL_MD5 21a928f6e0f1c7f24b6f63ff823593f5
-  PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h
+  PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/Translation-patched.h Eigen/src/Geometry/Translation.h
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND "")
