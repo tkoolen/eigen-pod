@@ -42,7 +42,7 @@ install(FILES ${SOURCE_DIR}/signature_of_eigen3_matrix_library
 
 
 # and finally the configure file
-set(EIGEN_VERSION_NUMBER 3.2.7)
+set(EIGEN_VERSION_NUMBER 3.2.92)
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/eigen3)
 configure_file(eigen3.pc.in eigen3.pc)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
