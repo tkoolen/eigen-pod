@@ -22,9 +22,9 @@ message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 # Note: this doesn't survive through to the configure step of the extenal project (http://cmake.3232098.n2.nabble.com/Pass-PATH-to-ExternalProject-Add-td5788195.html).  added an install version below
 
 ExternalProject_Add(eigen
-  URL https://bitbucket.org/eigen/eigen/get/3.3-beta1.tar.bz2
-#  URL_MD5 21a928f6e0f1c7f24b6f63ff823593f5
-  PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/Translation-patched.h Eigen/src/Geometry/Translation.h && cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h && cmake -E copy ${PROJECT_SOURCE_DIR}/GeneralBlockPanelKernel-patched.h Eigen/src/Core/products/GeneralBlockPanelKernel.h
+  URL https://bitbucket.org/eigen/eigen/get/3.3-beta2.tar.bz2
+  URL_MD5 109d4ae021e5f7143651850370659c0d
+  #PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/Translation-patched.h Eigen/src/Geometry/Translation.h && cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h && cmake -E copy ${PROJECT_SOURCE_DIR}/GeneralBlockPanelKernel-patched.h Eigen/src/Core/products/GeneralBlockPanelKernel.h
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND "")
@@ -42,7 +42,7 @@ install(FILES ${SOURCE_DIR}/signature_of_eigen3_matrix_library
 
 
 # and finally the configure file
-set(EIGEN_VERSION_NUMBER 3.2.92)
+set(EIGEN_VERSION_NUMBER 3.2.93)
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/include/eigen3)
 configure_file(eigen3.pc.in eigen3.pc)
 file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
