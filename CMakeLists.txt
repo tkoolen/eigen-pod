@@ -22,12 +22,20 @@ message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 # Note: this doesn't survive through to the configure step of the extenal project (http://cmake.3232098.n2.nabble.com/Pass-PATH-to-ExternalProject-Add-td5788195.html).  added an install version below
 
 ExternalProject_Add(eigen
-  URL https://bitbucket.org/eigen/eigen/get/3.3-beta2.tar.bz2
-  URL_MD5 109d4ae021e5f7143651850370659c0d
+  HG_REPOSITORY https://bitbucket.org/eigen/eigen/
+  HG_TAG default
   #PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/Translation-patched.h Eigen/src/Geometry/Translation.h && cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h && cmake -E copy ${PROJECT_SOURCE_DIR}/GeneralBlockPanelKernel-patched.h Eigen/src/Core/products/GeneralBlockPanelKernel.h
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND "")
+
+# ExternalProject_Add(eigen
+#   URL https://bitbucket.org/eigen/eigen/get/3.3-beta2.tar.bz2
+#   URL_MD5 109d4ae021e5f7143651850370659c0d
+#   #PATCH_COMMAND cmake -E copy ${PROJECT_SOURCE_DIR}/Translation-patched.h Eigen/src/Geometry/Translation.h && cmake -E copy ${PROJECT_SOURCE_DIR}/AutoDiffScalar-patched.h unsupported/Eigen/src/AutoDiff/AutoDiffScalar.h && cmake -E copy ${PROJECT_SOURCE_DIR}/GeneralBlockPanelKernel-patched.h Eigen/src/Core/products/GeneralBlockPanelKernel.h
+#   CONFIGURE_COMMAND ""
+#   BUILD_COMMAND ""
+#   INSTALL_COMMAND "")
 #  CMAKE_ARGS -G${CMAKE_GENERATOR} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DEIGEN_BUILD_PKGCONFIG=ON)
 
 # this was cleaner (more platform independent) than writing a wrapper shell script around CMAKE
