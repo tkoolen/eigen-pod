@@ -22,8 +22,8 @@ message(STATUS CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 # Note: this doesn't survive through to the configure step of the extenal project (http://cmake.3232098.n2.nabble.com/Pass-PATH-to-ExternalProject-Add-td5788195.html).  added an install version below
 
 ExternalProject_Add(eigen
-  HG_REPOSITORY https://bitbucket.org/eigen/eigen/
-  HG_TAG 9431:5a47e5a5b02e
+  URL https://bitbucket.org/eigen/eigen/get/5a47e5a.tar.gz
+  URL_MD5 54426bf9cb034a9031e9cd1327cc0921
   CONFIGURE_COMMAND ""
   BUILD_COMMAND ""
   INSTALL_COMMAND "")
